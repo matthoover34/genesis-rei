@@ -3,984 +3,378 @@
 <head>
  <meta charset="UTF-8" />
  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
- <title>Genesis REI</title>
+ <title>Genesis REI | Real Estate Mastermind</title>
+ <script src="https://cdn.tailwindcss.com"></script>
  <style>
- :root {
- --bg: #0a1020;
- --bg-soft: #111a33;
- --card: rgba(17, 26, 51, 0.8);
- --card-solid: #121c37;
- --text: #eef4ff;
- --muted: #a8b6d6;
- --line: rgba(255,255,255,0.1);
- --accent: #635bff;
- --accent-2: #00d4ff;
- --accent-soft: rgba(99, 91, 255, 0.16);
- --success: #1cc58f;
- --warning: #ffb020;
- --shadow: 0 20px 60px rgba(0,0,0,0.35);
- --radius: 24px;
- --radius-sm: 16px;
- --max: 1200px;
- }
-
- * { box-sizing: border-box; }
  html { scroll-behavior: smooth; }
- body {
- margin: 0;
- font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
- color: var(--text);
- background:
- radial-gradient(circle at top left, rgba(99,91,255,0.18), transparent 30%),
- radial-gradient(circle at top right, rgba(0,212,255,0.12), transparent 25%),
- linear-gradient(180deg, #08101f 0%, #0b1223 50%, #0a1020 100%);
- line-height: 1.5;
- }
-
- a { color: inherit; text-decoration: none; }
- img { max-width: 100%; display: block; }
-
- .container {
- width: min(calc(100% - 32px), var(--max));
- margin: 0 auto;
- }
-
- .section { padding: 88px 0; }
- .section-tight { padding: 56px 0; }
-
- .pill {
- display: inline-flex;
- align-items: center;
- gap: 8px;
- padding: 10px 14px;
- border: 1px solid rgba(255,255,255,0.12);
- border-radius: 999px;
- background: rgba(255,255,255,0.04);
- color: var(--muted);
- font-size: 14px;
- font-weight: 600;
- }
-
- .eyebrow-dot {
- width: 8px;
- height: 8px;
- border-radius: 50%;
- background: linear-gradient(135deg, var(--accent), var(--accent-2));
- box-shadow: 0 0 18px rgba(99,91,255,0.7);
- }
-
- .btn-row {
- display: flex;
- flex-wrap: wrap;
- gap: 14px;
- align-items: center;
- }
-
- .btn {
- display: inline-flex;
- align-items: center;
- justify-content: center;
- gap: 10px;
- min-height: 52px;
- padding: 0 20px;
- border-radius: 14px;
- border: 1px solid transparent;
- font-weight: 700;
- letter-spacing: 0.01em;
- transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
- cursor: pointer;
- }
-
- .btn:hover { transform: translateY(-2px); }
-
- .btn-primary {
- background: linear-gradient(135deg, var(--accent), #756dff);
- color: white;
- box-shadow: 0 18px 40px rgba(99,91,255,0.28);
- }
-
- .btn-secondary {
- background: rgba(255,255,255,0.04);
- color: var(--text);
- border-color: rgba(255,255,255,0.1);
- }
-
- .btn-soft {
- background: rgba(28,197,143,0.12);
- color: #ccffee;
- border-color: rgba(28,197,143,0.25);
- }
-
- .nav {
- position: sticky;
- top: 0;
- z-index: 20;
- backdrop-filter: blur(14px);
- background: rgba(8, 16, 31, 0.72);
- border-bottom: 1px solid rgba(255,255,255,0.06);
- }
-
- .nav-inner {
- display: flex;
- align-items: center;
- justify-content: space-between;
- gap: 20px;
- padding: 4px 0;
- }
-
- .brand {
- display: flex;
- align-items: center;
- gap: 0;
- font-weight: 800;
- letter-spacing: 0.04em;
- line-height: 1;
- flex-shrink: 0;
- }
-
- .brand-mark {
- display: flex;
- align-items: center;
- justify-content: center;
- width: auto;
- height: auto;
- border-radius: 0;
- background: transparent;
- border: 0;
- box-shadow: none;
- overflow: visible;
- padding: 0;
- margin: 0;
- flex-shrink: 0;
- }
-
- .brand-mark img {
- width: auto;
- height: 220px;
- max-width: none;
- object-fit: contain;
- filter: brightness(0) invert(1);
- display: block;
- }
-
- .brand-name {
- display: none;
- }
-
- .nav-links {
- display: flex;
- align-items: center;
- gap: 22px;
- color: var(--muted);
- font-size: 14px;
- font-weight: 600;
- }
-
- .hero {
- position: relative;
- overflow: hidden;
- padding: 76px 0 56px;
- }
-
+ body { background:#0f172a; }
+ .glass { background: rgba(15, 23, 42, 0.72); backdrop-filter: blur(12px); }
  .hero-grid {
- display: grid;
- grid-template-columns: 1.15fr 0.85fr;
- gap: 28px;
- align-items: stretch;
- }
-
- .hero-copy,
- .hero-panel {
- background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
- border: 1px solid rgba(255,255,255,0.08);
- border-radius: 30px;
- box-shadow: var(--shadow);
- }
-
- .hero-copy {
- padding: 42px;
- position: relative;
- overflow: hidden;
- }
-
- .hero-copy::after {
- content: "";
- position: absolute;
- inset: auto -60px -80px auto;
- width: 220px;
- height: 220px;
- background: radial-gradient(circle, rgba(99,91,255,0.32), transparent 65%);
- pointer-events: none;
- }
-
- .hero h1 {
- font-size: clamp(42px, 7vw, 74px);
- line-height: 0.96;
- margin: 18px 0 18px;
- letter-spacing: -0.04em;
- max-width: 850px;
- }
-
- .hero-sub {
- color: var(--muted);
- font-size: clamp(18px, 2vw, 22px);
- max-width: 720px;
- margin-bottom: 28px;
- }
-
- .hero-proof {
- display: grid;
- grid-template-columns: repeat(4, minmax(0,1fr));
- gap: 12px;
- margin-top: 28px;
- }
-
- .proof-chip {
- padding: 16px;
- border-radius: 18px;
- background: rgba(255,255,255,0.04);
- border: 1px solid rgba(255,255,255,0.08);
- }
-
- .proof-chip strong {
- display: block;
- font-size: 20px;
- background: linear-gradient(135deg, var(--accent), var(--accent-2));
- -webkit-background-clip: text;
- -webkit-text-fill-color: transparent;
- background-clip: text;
- margin-bottom: 3px;
- }
-
- .proof-chip span {
- color: var(--muted);
- font-size: 13px;
- font-weight: 600;
- }
-
- .hero-panel {
- padding: 24px;
- display: flex;
- flex-direction: column;
- gap: 18px;
- }
-
- .panel-card {
- background: rgba(255,255,255,0.04);
- border: 1px solid rgba(255,255,255,0.08);
- border-radius: 22px;
- padding: 22px;
- }
-
- .stat-grid {
- display: grid;
- grid-template-columns: repeat(2, minmax(0,1fr));
- gap: 12px;
- }
-
- .stat-box {
- border-radius: 18px;
- padding: 18px;
- background: linear-gradient(180deg, rgba(99,91,255,0.14), rgba(255,255,255,0.03));
- border: 1px solid rgba(255,255,255,0.08);
- }
-
- .stat-box b {
- display: block;
- font-size: 26px;
- margin-bottom: 6px;
- }
-
- .stat-box small {
- color: var(--muted);
- font-size: 12px;
- line-height: 1.35;
- display: block;
- }
-
- .section-head {
- max-width: 780px;
- margin-bottom: 28px;
- }
-
- .section-head h2 {
- font-size: clamp(34px, 4.8vw, 56px);
- line-height: 1.02;
- letter-spacing: -0.03em;
- margin: 14px 0 14px;
- }
-
- .section-head p {
- margin: 0;
- color: var(--muted);
- font-size: 18px;
- }
-
- .grid-3 {
- display: grid;
- grid-template-columns: repeat(3, minmax(0,1fr));
- gap: 18px;
- }
-
- .feature-card,
- .testimonial-card,
- .offer-card,
- .integration-card,
- .process-card {
- padding: 24px;
- border-radius: var(--radius);
- background: var(--card);
- border: 1px solid rgba(255,255,255,0.08);
- box-shadow: var(--shadow);
- }
-
- .feature-card h3,
- .testimonial-card h3,
- .offer-card h3,
- .integration-card h3,
- .process-card h3 {
- margin: 0 0 10px;
- font-size: 24px;
- line-height: 1.1;
- }
-
- .feature-card p,
- .testimonial-card p,
- .offer-card p,
- .integration-card p,
- .process-card p {
- margin: 0;
- color: var(--muted);
- font-size: 16px;
- }
-
- .feature-icon,
- .process-step {
- width: 50px;
- height: 50px;
- border-radius: 16px;
- display: grid;
- place-items: center;
- margin-bottom: 16px;
- background: linear-gradient(135deg, rgba(99,91,255,0.22), rgba(0,212,255,0.16));
- border: 1px solid rgba(255,255,255,0.08);
- font-weight: 800;
- font-size: 24px;
- color: white;
- }
-
- .authority-wrap {
- display: grid;
- grid-template-columns: 1fr 0.95fr;
- gap: 18px;
- align-items: stretch;
- }
-
- .authority-copy,
- .authority-list {
- padding: 28px;
- border-radius: 28px;
- background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
- border: 1px solid rgba(255,255,255,0.08);
- box-shadow: var(--shadow);
- }
-
- .authority-list ul,
- .offer-list,
- .integration-list {
- list-style: none;
- padding: 0;
- margin: 0;
- display: grid;
- gap: 14px;
- }
-
- .authority-list li,
- .offer-list li,
- .integration-list li {
- display: flex;
- gap: 12px;
- align-items: flex-start;
- color: var(--muted);
- }
-
- .asset-icon {
- font-size: 20px;
- margin-right: 8px;
- }
-
- .check {
- width: 22px;
- height: 22px;
- flex: 0 0 22px;
- border-radius: 50%;
- display: grid;
- place-items: center;
- background: rgba(28,197,143,0.15);
- color: #a6ffe0;
- font-size: 13px;
- margin-top: 2px;
- border: 1px solid rgba(28,197,143,0.2);
- }
-
- .testimonial-grid {
- display: grid;
- grid-template-columns: 1.25fr 1fr 1fr;
- gap: 18px;
- }
-
- .testimonial-card.featured {
- background: linear-gradient(180deg, rgba(99,91,255,0.18), rgba(255,255,255,0.03));
- }
-
- .quote {
- font-size: 22px;
- line-height: 1.35;
- margin: 0 0 20px;
- color: white;
- }
-
- .person {
- display: flex;
- align-items: center;
- gap: 12px;
- margin-top: 18px;
- }
-
- .avatar {
- width: 46px;
- height: 46px;
- border-radius: 50%;
- background: linear-gradient(135deg, var(--accent), var(--accent-2));
- display: grid;
- place-items: center;
- font-weight: 800;
- color: white;
- box-shadow: 0 10px 25px rgba(99,91,255,0.25);
- }
-
- .person-meta strong {
- display: block;
- font-size: 15px;
- }
-
- .person-meta span {
- color: var(--muted);
- font-size: 13px;
- }
-
- .offer-grid {
- display: grid;
- grid-template-columns: repeat(2, minmax(0,1fr));
- gap: 20px;
- align-items: stretch;
- }
-
- .offer-card {
- position: relative;
- padding-top: 30px;
- }
-
- .offer-card.featured {
- background: linear-gradient(180deg, rgba(99,91,255,0.2), rgba(18,28,55,0.96));
- border-color: rgba(99,91,255,0.42);
- transform: translateY(-4px);
- }
-
- .badge {
- position: absolute;
- top: 18px;
- right: 18px;
- padding: 8px 12px;
- border-radius: 999px;
- background: rgba(255,255,255,0.1);
- border: 1px solid rgba(255,255,255,0.12);
- font-size: 12px;
- font-weight: 800;
- letter-spacing: 0.03em;
- color: white;
- }
-
- .price {
- display: flex;
- align-items: flex-end;
- gap: 8px;
- margin: 14px 0 14px;
- }
-
- .price strong {
- font-size: 46px;
- line-height: 1;
- letter-spacing: -0.04em;
- }
-
- .price span {
- color: var(--muted);
- font-size: 15px;
- margin-bottom: 6px;
- }
-
- .sub-price {
- color: var(--muted);
- font-size: 14px;
- margin-bottom: 22px;
- }
-
- .offer-cta {
- margin-top: 22px;
- display: grid;
- gap: 12px;
- }
-
- .integration-grid {
- display: grid;
- grid-template-columns: 1fr 1fr;
- gap: 20px;
- }
-
- .embed-box {
- border-radius: 22px;
- border: 1px solid rgba(255,255,255,0.16);
- background: rgba(255,255,255,0.03);
- padding: 24px 18px;
- margin-top: 18px;
- display: flex;
- flex-direction: column;
- justify-content: center;
- align-items: center;
- text-align: center;
- gap: 12px;
- color: var(--muted);
- }
-
- .code-pill {
- display: inline-flex;
- align-items: center;
- justify-content: center;
- min-height: 34px;
- padding: 0 10px;
- border-radius: 10px;
- background: rgba(255,255,255,0.06);
- border: 1px solid rgba(255,255,255,0.08);
- font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
- font-size: 12px;
- color: #d8e4ff;
- }
-
- .footer {
- padding: 34px 0 48px;
- border-top: 1px solid rgba(255,255,255,0.08);
- color: var(--muted);
- }
-
- .footer-inner {
- display: flex;
- flex-wrap: wrap;
- justify-content: space-between;
- gap: 16px;
- font-size: 14px;
- }
-
- .fineprint {
- color: rgba(255,255,255,0.58);
- font-size: 12px;
- margin-top: 14px;
- max-width: 800px;
- }
-
- @media (max-width: 1024px) {
- .hero-grid,
- .authority-wrap,
- .testimonial-grid,
- .integration-grid,
- .offer-grid {
- grid-template-columns: 1fr;
- }
-
- .grid-3 {
- grid-template-columns: 1fr;
- }
-
- .hero-proof {
- grid-template-columns: repeat(2, minmax(0,1fr));
- }
- }
-
- @media (max-width: 760px) {
- .nav-links {
- display: none;
- }
-
- .section {
- padding: 68px 0;
- }
-
- .hero {
- padding: 42px 0 28px;
- }
-
- .hero-copy,
- .hero-panel,
- .authority-copy,
- .authority-list,
- .feature-card,
- .testimonial-card,
- .offer-card,
- .integration-card,
- .process-card {
- padding: 20px;
- border-radius: 22px;
- }
-
- .hero-proof,
- .stat-grid {
- grid-template-columns: 1fr;
- }
-
- .btn-row {
- flex-direction: column;
- align-items: stretch;
- }
-
- .btn {
- width: 100%;
- }
-
- .price strong {
- font-size: 40px;
- }
-
-
+ background-image:
+ linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+ linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+ background-size: 32px 32px;
  }
  </style>
 </head>
-<body>
- <header class="nav">
- <div class="container nav-inner">
- <a class="brand" href="#top" aria-label="Genesis REI home">
- <span class="brand-mark">
- <img src="Genesis REI Logo Black.svg" alt="Genesis REI logo">
- </span>
- <span class="brand-name">GENESIS REI</span>
- </a>
- <nav class="nav-links">
- <a href="#proof">Proof</a>
- <a href="#system">System</a>
- <a href="#testimonials">Results</a>
- <a href="#offers">Programs</a>
- <a href="#book">Book a Call</a>
+<body class="text-white antialiased selection:bg-red-500/30 selection:text-white">
+ <div class="fixed inset-x-0 top-0 z-50 border-b border-white/10 glass">
+ <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+ <a href="#top" class="text-sm font-black tracking-[0.24em] text-white sm:text-base">GENESIS REI</a>
+ <nav class="hidden items-center gap-6 text-sm text-slate-300 md:flex">
+ <a href="#proof" class="hover:text-white">Proof</a>
+ <a href="#paths" class="hover:text-white">Choose Your Path</a>
+ <a href="#room" class="hover:text-white">The Room</a>
+ <a href="#call" class="hover:text-white">Strategy Session</a>
  </nav>
- <a class="btn btn-primary" href="#offers">Get Started</a>
- </div>
- </header>
-
- <main id="top">
- <section class="hero">
- <!-- HERO WATERMARK (Variation 3 Applied) -->
- <img src="Genesis REI Logo Black.svg" 
- style="
- position:absolute;
- top:50%;
- left:50%;
- transform:translate(-50%,-50%);
- width:900px;
- opacity:0.04;
- filter:brightness(0) invert(1);
- pointer-events:none;
- z-index:0;
- ">
- <div class="container hero-grid">
- <div class="hero-copy" style="position:relative; z-index:2;">
- <div style="display:flex; align-items:center; gap:14px; margin-bottom:18px;">
- <img src="Genesis REI Logo Black.svg" alt="Genesis REI logo" style="height:100px; width:auto; object-fit:contain; filter:brightness(0) invert(1);">
- <div class="pill"><span class="eyebrow-dot"></span> Built from real deals, not course theory</div>
- </div>
- <h1>Two Paths<br>One Outcome:<br>Your Next<br>Real Estate Deal</h1>
- <p class="hero-sub">Learn from an active operator with roughly $10M in real estate assets, a 5 bed / 4.5 bath Gatlinburg Airbnb acquired through a 1031 exchange, ownership in a $3M storage facility, and commercial development underway right now.</p>
- <div class="btn-row">
- <a class="btn btn-primary" href="#book">Book My 1st Deal Call</a>
- </div>
- <div class="hero-proof">
- <div class="proof-chip"><strong>$10M</strong><span>in real estate assets (started from $0 in 2018)</span></div>
- <div class="proof-chip"><strong>28 Doors</strong><span>Peak portfolio before strategic 1031 exit</span></div>
- <div class="proof-chip"><strong>$1.7M</strong><span>Gatlinburg Airbnb acquired through 1031 exchange</span></div>
- <div class="proof-chip"><strong>$3.6M</strong><span>Storage facility in Jackson, TN (ownership stake)</span></div>
+ <a href="https://calendly.com/matt-hoover/30min" class="rounded-full bg-red-500 px-4 py-2 text-sm font-bold text-white transition hover:scale-[1.02] hover:bg-red-400">Book Strategy Session</a>
  </div>
  </div>
 
- <div class="hero-panel">
- <div class="panel-card">
- <div class="pill"><span class="eyebrow-dot"></span> Why this positions you differently</div>
- <div class="stat-grid" style="margin-top:16px;">
- <div class="stat-box">
- <b>1031</b>
- <small>Strategic capital repositioning, not just buying houses.</small>
+ <main id="top" class="pt-20">
+ <section class="hero-grid relative overflow-hidden border-b border-white/10 bg-slate-950">
+ <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(239,68,68,.22),transparent_35%),radial-gradient(circle_at_left,rgba(59,130,246,.18),transparent_30%)]"></div>
+ <div class="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:grid lg:grid-cols-12 lg:gap-10 lg:px-8 lg:py-24">
+ <div class="lg:col-span-7">
+ <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-red-400/20 bg-red-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-red-200">
+ Built from real deals, not course theory
  </div>
- <div class="stat-box">
- <b>STR</b>
- <small>Premium market short-term rental exposure.</small>
+ <h1 class="max-w-4xl text-4xl font-black leading-tight text-white sm:text-5xl lg:text-6xl">
+ From <span class="text-red-400">First Deal</span> to <span class="text-blue-300">Portfolio Growth</span> — Without Guessing or Going Alone
+ </h1>
+ <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
+ Genesis REI is a real estate mastermind for people who want to start smart, avoid expensive mistakes, and scale with other investors who are actively doing deals right now.
+ </p>
+
+ <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+ <a href="#call" class="inline-flex items-center justify-center rounded-full bg-red-500 px-6 py-4 text-base font-extrabold text-white shadow-lg shadow-red-500/25 transition hover:-translate-y-0.5 hover:bg-red-400">
+ Claim Your Free Deal Strategy Session
+ </a>
+ <a href="#paths" class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-4 text-base font-bold text-white transition hover:bg-white/10">
+ See Which Path Fits You
+ </a>
  </div>
- <div class="stat-box">
- <b>Storage</b>
- <small>Commercial ownership with real systems and scale.</small>
+
+ <p class="mt-4 text-sm text-slate-400">
+ No pressure. No obligation. You will leave the call with clarity on your next move.
+ </p>
+
+ <div class="mt-10 grid gap-4 sm:grid-cols-3">
+ <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+ <div class="text-2xl font-black text-white">$10M+</div>
+ <p class="mt-1 text-sm text-slate-300">Real estate assets built from active operations</p>
  </div>
- <div class="stat-box">
- <b>Dev</b>
- <small>Active development signals operator-level vision.</small>
+ <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+ <div class="text-2xl font-black text-white">28 Doors</div>
+ <p class="mt-1 text-sm text-slate-300">Peak portfolio before strategic 1031 repositioning</p>
+ </div>
+ <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+ <div class="text-2xl font-black text-white">West TN</div>
+ <p class="mt-1 text-sm text-slate-300">Local operator with active investing visibility</p>
  </div>
  </div>
  </div>
- <div class="panel-card">
- <h3 style="margin:0 0 12px; font-size:22px;">What prospects feel in 10 seconds</h3>
- <p style="color:var(--muted); margin:0 0 16px;">This is a real investor teaching from active operations across rentals, STRs, storage, and development—not a guru.</p>
- <div class="btn-row">
- <a class="btn btn-soft" href="#testimonials">See results</a>
- <a class="btn btn-secondary" href="#offers">Compare tiers</a>
+
+ <div class="mt-10 lg:col-span-5 lg:mt-0">
+ <div class="rounded-3xl border border-white/10 bg-slate-900/80 p-6 shadow-2xl shadow-black/30">
+ <p class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">Choose your path</p>
+ <h2 class="mt-3 text-2xl font-black text-white">Where are you right now?</h2>
+ <div class="mt-6 space-y-4">
+ <a href="#novice" class="block rounded-2xl border border-blue-400/25 bg-blue-400/10 p-5 transition hover:border-blue-300 hover:bg-blue-400/15">
+ <div class="text-sm font-bold uppercase tracking-wide text-blue-200">Path 1</div>
+ <div class="mt-1 text-xl font-black text-white">I have never done a deal</div>
+ <p class="mt-2 text-sm leading-6 text-slate-200">I want a clear roadmap, real support, and protection from rookie mistakes.</p>
+ </a>
+ <a href="#investor" class="block rounded-2xl border border-red-400/25 bg-red-400/10 p-5 transition hover:border-red-300 hover:bg-red-400/15">
+ <div class="text-sm font-bold uppercase tracking-wide text-red-200">Path 2</div>
+ <div class="mt-1 text-xl font-black text-white">I have done 1–5 deals</div>
+ <p class="mt-2 text-sm leading-6 text-slate-200">I want better deal flow, sharper systems, and a room that helps me scale.</p>
+ </a>
+ </div>
+ <div class="mt-6 rounded-2xl border border-emerald-400/20 bg-emerald-400/10 p-4 text-sm text-emerald-100">
+ The goal is the same for both paths: your next deal with more clarity, less waste, and stronger execution.
  </div>
  </div>
  </div>
  </div>
  </section>
 
- <section class="section section-tight" id="proof">
- <div class="container authority-wrap">
- <div class="authority-copy">
- <div class="section-head">
- <div class="pill"><span class="eyebrow-dot"></span> Authority without ego</div>
- <h2>Use the numbers to build trust.</h2>
- <p>The right prospects don't need chest-beating. They need clear reasons to believe you know what you're talking about. Your background does that naturally when framed as proof, not hype.</p>
+ <section class="border-b border-white/10 bg-slate-900">
+ <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+ <div class="max-w-3xl">
+ <p class="text-sm font-bold uppercase tracking-[0.2em] text-red-300">The real problem</p>
+ <h2 class="mt-4 text-3xl font-black text-white sm:text-4xl">Most investors do not fail because they are lazy. They fail because they are isolated.</h2>
+ <p class="mt-5 text-lg leading-8 text-slate-300">Some people stay stuck because they are afraid to start. Others stay small because they are trying to scale without the right room, the right feedback, or the right relationships.</p>
  </div>
- <p style="color:var(--muted); font-size:17px; margin:0;">You scaled to 28 doors, exited strategically, used a 1031 exchange to acquire a premium Airbnb, own part of a $3M storage facility, and are actively developing commercial land. That tells a prospect you understand investing beyond basic house flipping.</p>
+ <div class="mt-10 grid gap-6 lg:grid-cols-2">
+ <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+ <h3 class="text-xl font-black text-white">If you are new</h3>
+ <ul class="mt-4 space-y-3 text-slate-300">
+ <li>• You do not know what step comes first</li>
+ <li>• You are afraid of missing something costly</li>
+ <li>• You are consuming content but not moving</li>
+ </ul>
  </div>
- <div class="authority-list">
- <h3 style="margin-top:0; font-size:22px;">Credibility anchors</h3>
- <ul>
- <li><span class="asset-icon">🏠</span><span><strong style="color:white;">Rentals:</strong> Multiple properties with proven cash flow</span></li>
- <li><span class="asset-icon">🏨</span><span><strong style="color:white;">STR:</strong> Premium Airbnb/VRBO exposure (Gatlinburg)</span></li>
- <li><span class="asset-icon">📦</span><span><strong style="color:white;">Storage:</strong> Commercial ownership ($3M+ facility)</span></li>
- <li><span class="asset-icon">🏗️</span><span><strong style="color:white;">Development:</strong> Active commercial projects in motion</span></li>
+ <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+ <h3 class="text-xl font-black text-white">If you are active</h3>
+ <ul class="mt-4 space-y-3 text-slate-300">
+ <li>• Your deal flow is inconsistent</li>
+ <li>• You are still solving too much alone</li>
+ <li>• You feel the plateau between hustle and scale</li>
  </ul>
  </div>
  </div>
- </section>
-
- <section class="section" id="system">
- <div class="container">
- <div class="section-head">
- <div class="pill"><span class="eyebrow-dot"></span> The Genesis system</div>
- <h2>Simple. Hard to ignore.</h2>
- <p>Easy to scan. Easy to remember. Strong enough that someone can picture themselves moving through it.</p>
- </div>
- <div class="grid-3">
- <div class="feature-card">
- <div class="feature-icon">🔍</div>
- <h3>Find the deal</h3>
- <p>Identify opportunities with real margin, upside, and strategic fit instead of chasing random properties.</p>
- </div>
- <div class="feature-card">
- <div class="feature-icon">💰</div>
- <h3>Fund the deal</h3>
- <p>Understand capital structure, partnerships, creative finance, and how to move deals without paralysis.</p>
- </div>
- <div class="feature-card">
- <div class="feature-icon">📈</div>
- <h3>Scale the strategy</h3>
- <p>Move from single deals to a portfolio mindset built around wealth creation, not random transactions.</p>
- </div>
- </div>
  </div>
  </section>
 
- <section class="section" id="testimonials">
- <div class="container">
- <div class="section-head">
- <div class="pill"><span class="eyebrow-dot"></span> Social proof (real testimonials coming next week)</div>
- <h2>Results that speak for themselves.</h2>
- <p>Your testimonials are being collected. This section is polished and ready for real client quotes and results.</p>
+ <section id="room" class="border-b border-white/10 bg-slate-950">
+ <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+ <div class="grid gap-10 lg:grid-cols-12 lg:items-center">
+ <div class="lg:col-span-6">
+ <p class="text-sm font-bold uppercase tracking-[0.2em] text-blue-300">The mastermind difference</p>
+ <h2 class="mt-4 text-3xl font-black text-white sm:text-4xl">This is not a lonely course. This is a room.</h2>
+ <p class="mt-5 text-lg leading-8 text-slate-300">Masterminds are sold on proximity. Genesis REI is built around access, accountability, deal thinking, and real investor conversations that push you forward faster than trying to piece everything together alone.</p>
+ <div class="mt-8 grid gap-4 sm:grid-cols-2">
+ <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+ <div class="text-lg font-black text-white">Live Deal Thinking</div>
+ <p class="mt-2 text-sm text-slate-300">Real conversations around acquisition, funding, risk, and next steps.</p>
  </div>
- <div class="testimonial-grid">
- <div class="testimonial-card featured">
- <p class="quote">"This is where your strongest testimonial goes. Use a client result with specific wins and confidence."</p>
- <p style="color:var(--muted);">Best use: a prospect who came in overwhelmed, got clarity, and moved into action faster than expected.</p>
- <div class="person">
- <div class="avatar">A</div>
- <div class="person-meta">
- <strong>Client Name</strong>
- <span>First investor result</span>
+ <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+ <div class="text-lg font-black text-white">Execution Pressure</div>
+ <p class="mt-2 text-sm text-slate-300">A room that expects movement, not endless learning.</p>
  </div>
+ <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+ <div class="text-lg font-black text-white">Community & Access</div>
+ <p class="mt-2 text-sm text-slate-300">You are not buying videos. You are buying better conversations.</p>
  </div>
- </div>
-
- <div class="testimonial-card">
- <h3>Result-driven quote</h3>
- <p>"Matt simplified the process and gave me a real framework instead of generic motivation."</p>
- <div class="person">
- <div class="avatar">B</div>
- <div class="person-meta">
- <strong>Client Name</strong>
- <span>First deal closed</span>
+ <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+ <div class="text-lg font-black text-white">Current Market Relevance</div>
+ <p class="mt-2 text-sm text-slate-300">Strategies grounded in real operations instead of outdated theory.</p>
  </div>
  </div>
  </div>
-
- <div class="testimonial-card">
- <h3>Trust-building quote</h3>
- <p>"What stood out was that he's actively doing deals. That made the guidance feel practical, current, and credible."</p>
- <div class="person">
- <div class="avatar">C</div>
- <div class="person-meta">
- <strong>Client Name</strong>
- <span>Confidence & clarity</span>
+ <div class="lg:col-span-6">
+ <div class="rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900 to-slate-800 p-6 shadow-2xl shadow-black/30">
+ <p class="text-sm font-bold uppercase tracking-[0.2em] text-slate-400">Inside the room</p>
+ <div class="mt-5 space-y-4">
+ <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+ <div class="font-bold text-white">Absolute novices</div>
+ <p class="mt-1 text-sm text-slate-300">Getting a real roadmap to their first deal and learning what not to do.</p>
+ </div>
+ <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+ <div class="font-bold text-white">Active investors</div>
+ <p class="mt-1 text-sm text-slate-300">Sharpening acquisition, systems, partnerships, and deal quality.</p>
+ </div>
+ <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+ <div class="font-bold text-white">Serious operators</div>
+ <p class="mt-1 text-sm text-slate-300">Seeking higher-level access, stronger networks, and better leverage.</p>
+ </div>
+ </div>
+ <div class="mt-6 rounded-2xl border border-red-400/20 bg-red-400/10 p-4 text-sm text-red-100">
+ People do not join masterminds because they need more information. They join because the right room shortens the path.
+ </div>
  </div>
  </div>
  </div>
  </div>
  </section>
 
- <section class="section" id="offers">
- <div class="container">
- <div class="section-head">
- <div class="pill"><span class="eyebrow-dot"></span> Offer stack</div>
- <h2>Two paths. One brand. Clear next step.</h2>
- <p>The Builder is the practical entry point. Premium is for serious operators ready for deeper guidance and deal partnership.</p>
+ <section id="paths" class="border-b border-white/10 bg-slate-900">
+ <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+ <div class="max-w-3xl">
+ <p class="text-sm font-bold uppercase tracking-[0.2em] text-red-300">Two avatars. One brand.</p>
+ <h2 class="mt-4 text-3xl font-black text-white sm:text-4xl">Clear path for the beginner. Clear edge for the operator.</h2>
  </div>
-
- <div class="offer-grid">
- <div class="offer-card" id="checkout-foundation">
- <span class="badge">THE BUILDER</span>
- <h3>The Builder</h3>
- <p>For the investor who wants structure, mentorship, and a serious path to getting in the game.</p>
- <div class="price">
- <strong>$499</strong>
- <span>/month</span>
- </div>
- <div class="sub-price">Strong entry-level path for action-takers who want the system, support, and accountability.</div>
- <ul class="offer-list">
- <li><span class="check">✓</span><span>Core Genesis REI framework</span></li>
- <li><span class="check">✓</span><span>Training on finding, evaluating, and structuring deals</span></li>
- <li><span class="check">✓</span><span>Group mentorship and implementation guidance</span></li>
- <li><span class="check">✓</span><span>Action-focused support instead of theory overload</span></li>
- <li><span class="check">✓</span><span>Best for investors ready to start smart and build momentum</span></li>
+ <div class="mt-10 grid gap-6 lg:grid-cols-2">
+ <div id="novice" class="rounded-3xl border border-blue-400/20 bg-blue-400/10 p-7">
+ <div class="inline-flex rounded-full border border-blue-300/30 bg-blue-300/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-blue-200">For the absolute novice</div>
+ <h3 class="mt-5 text-2xl font-black text-white">Start without making expensive rookie mistakes</h3>
+ <p class="mt-4 text-slate-200">You need structure, confidence, and a real sequence of what to do next. This path is for people who want community, education, and a smarter way into the game.</p>
+ <ul class="mt-6 space-y-3 text-slate-100">
+ <li>• Step-by-step roadmap to your first deal</li>
+ <li>• Help finding, evaluating, and structuring opportunities</li>
+ <li>• Support that turns confusion into action</li>
+ <li>• Accountability that keeps you moving</li>
  </ul>
- <div class="offer-cta">
- <a class="btn btn-primary" href="https://buy.stripe.com/test_foundation_placeholder" target="_blank" rel="noreferrer">Enroll in The Builder</a>
- <a class="btn btn-secondary" href="#book">Book a Call First</a>
+ <a href="#call" class="mt-8 inline-flex rounded-full bg-white px-5 py-3 text-sm font-black text-slate-950 transition hover:scale-[1.02]">Book a Beginner Strategy Session</a>
+ </div>
+ <div id="investor" class="rounded-3xl border border-red-400/20 bg-red-400/10 p-7">
+ <div class="inline-flex rounded-full border border-red-300/30 bg-red-300/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-red-200">For the active investor</div>
+ <h3 class="mt-5 text-2xl font-black text-white">Break through the plateau and scale with stronger leverage</h3>
+ <p class="mt-4 text-slate-200">You already know enough to be dangerous. Now the need is sharper deal flow, better decision-making, stronger systems, and proximity to people thinking bigger.</p>
+ <ul class="mt-6 space-y-3 text-slate-100">
+ <li>• Better deal sourcing and sharper filtering</li>
+ <li>• Real-time strategy around growth and partnerships</li>
+ <li>• Proximity to practical deal execution</li>
+ <li>• Network effects that create momentum</li>
+ </ul>
+ <a href="#call" class="mt-8 inline-flex rounded-full bg-white px-5 py-3 text-sm font-black text-slate-950 transition hover:scale-[1.02]">Book an Operator Strategy Session</a>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <section id="proof" class="border-b border-white/10 bg-slate-950">
+ <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+ <div class="grid gap-10 lg:grid-cols-12">
+ <div class="lg:col-span-5">
+ <p class="text-sm font-bold uppercase tracking-[0.2em] text-blue-300">Proof is king</p>
+ <h2 class="mt-4 text-3xl font-black text-white sm:text-4xl">Built by an operator, not an internet guru</h2>
+ <p class="mt-5 text-lg leading-8 text-slate-300">Real estate buyers are skeptical for a reason. This page should earn trust with specifics, not vague claims. Put your real numbers and real experience to work.</p>
+ </div>
+ <div class="lg:col-span-7 grid gap-4 sm:grid-cols-2">
+ <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+ <div class="text-sm uppercase tracking-[0.2em] text-slate-400">Portfolio</div>
+ <div class="mt-2 text-2xl font-black text-white">$10M+ assets</div>
+ <p class="mt-2 text-sm text-slate-300">Show that you are building from real operations, not theory slides.</p>
+ </div>
+ <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+ <div class="text-sm uppercase tracking-[0.2em] text-slate-400">Peak ownership</div>
+ <div class="mt-2 text-2xl font-black text-white">28 doors</div>
+ <p class="mt-2 text-sm text-slate-300">Demonstrates repeated deal execution and portfolio management.</p>
+ </div>
+ <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+ <div class="text-sm uppercase tracking-[0.2em] text-slate-400">Strategic move</div>
+ <div class="mt-2 text-2xl font-black text-white">1031 into Gatlinburg STR</div>
+ <p class="mt-2 text-sm text-slate-300">Signals investor-level thinking beyond basic flips.</p>
+ </div>
+ <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+ <div class="text-sm uppercase tracking-[0.2em] text-slate-400">Commercial visibility</div>
+ <div class="mt-2 text-2xl font-black text-white">Storage + development</div>
+ <p class="mt-2 text-sm text-slate-300">Broadens trust by showing range, scale, and live market activity.</p>
+ </div>
  </div>
  </div>
 
- <div class="offer-card featured" id="checkout-premium">
- <span class="badge">THE OPERATOR</span>
- <h3>The Operator</h3>
- <p>Private mentorship for serious investors ready to move beyond theory and into real deal execution.</p>
- <div class="price">
- <strong>Apply</strong>
- <span>to join</span>
+ <div class="mt-12 grid gap-6 lg:grid-cols-3">
+ <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+ <p class="text-sm font-bold uppercase tracking-[0.18em] text-slate-400">Testimonial slot</p>
+ <p class="mt-4 text-lg leading-8 text-white">"I stopped overthinking and finally had a clear path to my first deal."</p>
+ <p class="mt-4 text-sm text-slate-400">Replace with real name + real result</p>
  </div>
- <div class="sub-price">Limited availability. Not everyone is accepted. For operators ready to scale faster and access Matt's deal flow.</div>
- <ul class="offer-list">
- <li><span class="check">✓</span><span>Everything in The Builder, plus deeper access</span></li>
- <li><span class="check">✓</span><span>Higher-level strategic guidance and direct feedback</span></li>
- <li><span class="check">✓</span><span>Closer proximity to live deal thinking and execution</span></li>
- <li><span class="check">✓</span><span>Direct communication channel with Matt</span></li>
- <li><span class="check">✓</span><span>Pricing shared after conversation based on fit and commitment</span></li>
+ <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+ <p class="text-sm font-bold uppercase tracking-[0.18em] text-slate-400">Testimonial slot</p>
+ <p class="mt-4 text-lg leading-8 text-white">"The biggest difference was being around active people instead of random online advice."</p>
+ <p class="mt-4 text-sm text-slate-400">Replace with real name + real deal outcome</p>
+ </div>
+ <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+ <p class="text-sm font-bold uppercase tracking-[0.18em] text-slate-400">Testimonial slot</p>
+ <p class="mt-4 text-lg leading-8 text-white">"Matt made the process practical, current, and simple enough to actually execute."</p>
+ <p class="mt-4 text-sm text-slate-400">Replace with real name + proof screenshot if available</p>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <section class="border-b border-white/10 bg-slate-900">
+ <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+ <div class="max-w-3xl">
+ <p class="text-sm font-bold uppercase tracking-[0.2em] text-red-300">The offer stack</p>
+ <h2 class="mt-4 text-3xl font-black text-white sm:text-4xl">Two paths into Genesis REI</h2>
+ <p class="mt-5 text-lg leading-8 text-slate-300">Keep the offers simple. One path for action-takers who need structure. One path for serious operators who want deeper proximity and higher-level support.</p>
+ </div>
+ <div class="mt-10 grid gap-6 lg:grid-cols-2">
+ <div class="rounded-3xl border border-white/10 bg-white/5 p-8">
+ <div class="text-sm font-bold uppercase tracking-[0.2em] text-blue-300">The Builder</div>
+ <h3 class="mt-3 text-2xl font-black text-white">Start smart. Build momentum.</h3>
+ <p class="mt-4 text-slate-300">For investors who want mentorship, community, and a serious path to getting in the game.</p>
+ <div class="mt-6 text-3xl font-black text-white">$499<span class="text-base font-medium text-slate-400">/month</span></div>
+ <ul class="mt-6 space-y-3 text-slate-200">
+ <li>• Core Genesis REI framework</li>
+ <li>• Training on finding, evaluating, and structuring deals</li>
+ <li>• Group mentorship and implementation guidance</li>
+ <li>• Action-focused support instead of theory overload</li>
  </ul>
- <div class="offer-cta">
- <a class="btn btn-primary" href="#book">Apply to Join</a>
- <a class="btn btn-secondary" href="#book">Book a Private Call</a>
+ <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+ <a href="#call" class="rounded-full bg-white px-5 py-3 text-center text-sm font-black text-slate-950">Book a Call First</a>
+ <a href="#" class="rounded-full border border-white/15 bg-white/5 px-5 py-3 text-center text-sm font-bold text-white">Enroll Directly</a>
+ </div>
+ </div>
+ <div class="rounded-3xl border border-red-400/20 bg-red-400/10 p-8">
+ <div class="text-sm font-bold uppercase tracking-[0.2em] text-red-200">The Operator</div>
+ <h3 class="mt-3 text-2xl font-black text-white">Deeper access. Higher-level deal thinking.</h3>
+ <p class="mt-4 text-slate-100">For serious investors ready to move beyond theory, shorten the path, and get closer to real-time execution.</p>
+ <div class="mt-6 text-2xl font-black text-white">Application only</div>
+ <ul class="mt-6 space-y-3 text-slate-100">
+ <li>• Everything in The Builder, plus deeper access</li>
+ <li>• Higher-level strategic guidance and direct feedback</li>
+ <li>• Closer proximity to live deal thinking and execution</li>
+ <li>• Private communication channel and fit-based pricing</li>
+ </ul>
+ <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+ <a href="#call" class="rounded-full bg-white px-5 py-3 text-center text-sm font-black text-slate-950">Apply Through a Private Call</a>
+ <a href="#room" class="rounded-full border border-white/15 bg-white/5 px-5 py-3 text-center text-sm font-bold text-white">Why the room matters</a>
  </div>
  </div>
  </div>
  </div>
  </section>
 
- <section class="section" id="book">
- <div class="container">
- <div class="section-head">
- <div class="pill"><span class="eyebrow-dot"></span> Two easy ways to move forward</div>
- <h2>Ready to talk or ready to start?</h2>
- <p>Some people want to book a call first. Some are ready right now. Both paths are here.</p>
+ <section id="call" class="border-b border-white/10 bg-slate-950">
+ <div class="mx-auto max-w-5xl px-4 py-16 text-center sm:px-6 lg:px-8 lg:py-20">
+ <p class="text-sm font-bold uppercase tracking-[0.2em] text-blue-300">The CTA</p>
+ <h2 class="mt-4 text-3xl font-black text-white sm:text-5xl">This should feel like a strategy session, not a sales ambush</h2>
+ <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-300">On this 1-on-1 Google Meet call, you will walk through your current position, your biggest bottleneck, and the clearest path to your first or next deal. If Genesis REI is a fit, you will see how it works. If it is not, you still leave with clarity.</p>
+ <div class="mt-10 grid gap-4 text-left sm:grid-cols-3">
+ <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+ <div class="font-black text-white">1. Diagnose the bottleneck</div>
+ <p class="mt-2 text-sm text-slate-300">Where are you stuck right now and why?</p>
  </div>
+ <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+ <div class="font-black text-white">2. Build the next move</div>
+ <p class="mt-2 text-sm text-slate-300">Map your next deal step with clarity and direction.</p>
+ </div>
+ <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+ <div class="font-black text-white">3. Decide on fit</div>
+ <p class="mt-2 text-sm text-slate-300">See whether Genesis REI is the right vehicle for you.</p>
+ </div>
+ </div>
+ <a href="https://calendly.com/matt-hoover/30min" class="mt-10 inline-flex items-center justify-center rounded-full bg-red-500 px-8 py-4 text-base font-extrabold text-white shadow-lg shadow-red-500/25 transition hover:-translate-y-0.5 hover:bg-red-400">Claim Your Free Deal Strategy Session</a>
+ <p class="mt-4 text-sm text-slate-400">No pressure. No obligation. Limited strategy sessions available each month.</p>
+ </div>
+ </section>
 
- <div class="integration-grid">
- <div class="integration-card">
- <h3>Book a Strategy Call</h3>
- <p>Talk through your goals, ask questions, and figure out which path is right for you. All calls are 30 minutes with Matt.</p>
- <ul class="integration-list" style="margin-top:18px;">
- <li><span class="check">✓</span><span>Perfect if you want to qualify or build confidence first</span></li>
- <li><span class="check">✓</span><span>Ideal for The Builder or Premium prospects</span></li>
- <li><span class="check">✓</span><span>Book directly below—no waiting</span></li>
- </ul>
- <div class="embed-box">
- <div style="text-align:center;">
- <h4 style="margin:0 0 16px; color:white;">Ready to start?</h4>
- <a class="btn btn-primary" href="https://calendly.com/matt-hoover/30min" target="_blank" rel="noreferrer">Book Your Call Now</a>
+ <section class="border-b border-white/10 bg-slate-900">
+ <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+ <div class="grid gap-8 lg:grid-cols-2">
+ <div class="rounded-3xl border border-white/10 bg-white/5 p-8">
+ <p class="text-sm font-bold uppercase tracking-[0.2em] text-red-300">Calendly setup</p>
+ <h2 class="mt-4 text-2xl font-black text-white">Use this positioning on your booking page</h2>
+ <div class="mt-6 space-y-4 text-slate-300">
+ <p><span class="font-bold text-white">Event name:</span> Genesis REI Deal Strategy Session</p>
+ <p><span class="font-bold text-white">Description:</span> A 1-on-1 session to identify where you are, what is holding you back, and the clearest path to your first or next deal.</p>
+ <p><span class="font-bold text-white">Confirmation text:</span> You are booked. Come ready with your goals, current challenges, and the kind of deals you want to pursue.</p>
  </div>
  </div>
- </div>
-
- <div class="integration-card">
- <h3>Enroll Directly</h3>
- <p>If you know you're ready to start, you can enroll in The Builder and begin immediately. Premium prospects should book a call first.</p>
- <ul class="integration-list" style="margin-top:18px;">
- <li><span class="check">✓</span><span>The Builder has a direct enrollment path</span></li>
- <li><span class="check">✓</span><span>Premium requires an application conversation</span></li>
- <li><span class="check">✓</span><span>Choose what works for your timeline</span></li>
- </ul>
- <div class="embed-box">
- <div style="text-align:center;">
- <h4 style="margin:0 0 16px; color:white;">Ready to start?</h4>
- <div class="btn-row" style="justify-content:center; gap:12px;">
- <a class="btn btn-primary" href="#checkout-foundation">Enroll The Builder</a>
- <a class="btn btn-secondary" href="#checkout-premium">Apply to Premium</a>
- </div>
- </div>
+ <div class="rounded-3xl border border-white/10 bg-white/5 p-8">
+ <p class="text-sm font-bold uppercase tracking-[0.2em] text-blue-300">Calendly intake questions</p>
+ <div class="mt-5 space-y-3 text-slate-300">
+ <p>1. What best describes you right now?</p>
+ <p>2. What is your number one real estate goal over the next 12 months?</p>
+ <p>3. What is the biggest thing holding you back right now?</p>
+ <p>4. Are you actively trying to do a deal in the next 90 days?</p>
+ <p>5. If we find a clear path forward, are you open to investing in mentorship?</p>
  </div>
  </div>
  </div>
  </div>
  </section>
 
- <section class="section">
- <div class="container">
- <div class="process-card" style="padding:32px;">
- <div class="section-head" style="margin-bottom:18px;">
- <div class="pill"><span class="eyebrow-dot"></span> What's different about this site</div>
- <h2>Built for conversion, not vanity</h2>
- <p>Every element on this page is designed to move you from "interested" to "enrolled." Here's how.</p>
- </div>
- <div class="grid-3">
- <div class="process-card" style="box-shadow:none; background:rgba(255,255,255,0.03);">
- <div class="feature-icon">🎯</div>
- <h3>Authority First</h3>
- <p>Your real assets and active deals show up immediately. No generic motivation.</p>
- </div>
- <div class="process-card" style="box-shadow:none; background:rgba(255,255,255,0.03);">
- <div class="feature-icon">🛤️</div>
- <h3>Two Clear Paths</h3>
- <p>Entry-level The Builder or Premium access. No confusion about what you're buying.</p>
- </div>
- <div class="process-card" style="box-shadow:none; background:rgba(255,255,255,0.03);">
- <div class="feature-icon">📱</div>
- <h3>Frictionless Action</h3>
- <p>One-click booking or direct enrollment. Get started today, not next week.</p>
- </div>
- </div>
+ <section class="bg-slate-950">
+ <div class="mx-auto max-w-5xl px-4 py-16 text-center sm:px-6 lg:px-8 lg:py-20">
+ <p class="text-sm font-bold uppercase tracking-[0.2em] text-red-300">Final close</p>
+ <h2 class="mt-4 text-3xl font-black text-white sm:text-5xl">Keep trying to figure it out alone, or get in the room and move faster</h2>
+ <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-300">You do not need more random content. You need a better environment, a clearer path, and a real next step.</p>
+ <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+ <a href="https://calendly.com/matt-hoover/30min" class="inline-flex items-center justify-center rounded-full bg-red-500 px-8 py-4 text-base font-extrabold text-white shadow-lg shadow-red-500/25 transition hover:-translate-y-0.5 hover:bg-red-400">Book Your Strategy Session</a>
+ <a href="#paths" class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-8 py-4 text-base font-bold text-white transition hover:bg-white/10">Review the paths again</a>
  </div>
  </div>
  </section>
  </main>
 
- <footer class="footer">
- <div class="container footer-inner">
- <div>
- <strong style="color:white; display:block; margin-bottom:6px;">Genesis REI</strong>
- <div>Active real estate investor brand. Premium mentorship for serious operators.</div>
+ <div class="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-slate-950/95 p-3 backdrop-blur md:hidden">
+ <a href="https://calendly.com/matt-hoover/30min" class="block rounded-full bg-red-500 px-5 py-4 text-center text-base font-extrabold text-white shadow-lg shadow-red-500/25">Claim Your Free Deal Strategy Session</a>
  </div>
- <div>
- <div><a href="#offers">Programs</a> · <a href="#book">Book a Call</a> · <a href="#testimonials">Results</a></div>
- <div class="fineprint">Real estate investing carries risk. Past performance does not guarantee future results. Update all placeholders with real testimonials, Stripe links, and final copy before launch.</div>
- </div>
- </div>
- </footer>
 </body>
 </html>
